@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+                 version="2.0">
+
+    <!-- further example: http://wiki.eclipse.org/EclipseLink/Examples/JPA/Dynamic -->
+
+    <!-- Defaults for the entire persistence unit -->
+    <persistence-unit-metadata>
+        <xml-mapping-metadata-complete/>
+        <persistence-unit-defaults>
+            <schema>BLA</schema>
+            <catalog>CAT</catalog>
+            <access>FIELD</access>
+            <cascade-persist/>
+            <entity-listeners>
+                <entity-listener class="my.company.pack.MyEntityListener"/>
+            </entity-listeners>
+        </persistence-unit-defaults>
+    </persistence-unit-metadata>
+
+    <!-- defaults which pertain only to entities, mapped superclasses, and embedded objects of a particular mapping file -->
+    <package>my.company</package>
+    <schema>BLA</schema>
+    <catalog>CAT</catalog>
+    <access>FIELD</access>
+
+    <!-- queries and generators -->
+    <sequence-generator name="empGen" sequence-name="empSeq"/>
+    <table-generator name="tableGen" table="ID_TABLEGEN" pk-column-value="EmpId"/>
+    <named-query name="myNamedQuery">
+        <query>SELECT d FROM Driver d</query>
+    </named-query>
+    <named-native-query name="myNativeQuery">
+        <query>SELECT d FROM Driver d</query>
+        <hint name="persistence.cacheRetrieveMode" value="CacheRetrieveMode.BYPASS"/>
+    </named-native-query>
+    <sql-result-set-mapping name="DepSummary">
+        <entity-result entity-class="de.jpa.cert.domain.Driver">
+            <field-result name="name" column="DRNAME"/>
+        </entity-result>
+    </sql-result-set-mapping>
+
+    <!-- mapped superclasses -->
+    <mapped-superclass class="de.abc.MyMappedSuperclass" metadata-complete="true" />
+
+    <!-- entity mappings -->
+    <entity class="de.jpa.cert.domain.Car" metadata-complete="false">
+        <exclude-default-listeners/>
+        <attributes>
+            <id name="id">
+                <generated-value generator="CarIdGen" strategy="TABLE"/>
+                <table-generator name="CarIdGen" table="CAR_ID_GENERATOR" pk-column-name="PK" value-column-name="AID"
+                                 allocation-size="1" initial-value="1" pk-column-value="1"/>
+            </id>
+        </attributes>
+    </entity>
+
+    <!-- embeddables -->
+    <embeddable class="de.abc.MyEmbeddable" metadata-complete="true" />
+
+</entity-mappings>

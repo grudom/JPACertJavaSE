@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+    <!--<persistence-unit name="CarServiceHibernate" transaction-type="RESOURCE_LOCAL">-->
+        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
+        <!--<mapping-file>META-INF/derby-overrides.xml</mapping-file>-->
+        <!--<class>de.jpa.cert.domain.Car</class>-->
+        <!--<class>de.jpa.cert.domain.Driver</class>-->
+        <!--<class>de.jpa.cert.domain.ParkingSlot</class>-->
+        <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
+        <!--<properties>-->
+            <!--&lt;!&ndash; Common properties &ndash;&gt;-->
+            <!--<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/BasementGarageDB;create=true"/>-->
+            <!--<property name="javax.persistence.jdbc.user" value="APP"/>-->
+            <!--<property name="javax.persistence.jdbc.password" value="APP"/>-->
+            <!--&lt;!&ndash; Hibernate specific properties &ndash;&gt;-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <!--<property name="hibernate.show_sql" value="true" />-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect"/>-->
+        <!--</properties>-->
+    <!--</persistence-unit>-->
+
+
+    <persistence-unit name="CarServiceEclipselink" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <mapping-file>META-INF/derby-overrides.xml</mapping-file>
+        <class>de.jpa.cert.domain.Car</class>
+        <class>de.jpa.cert.domain.Driver</class>
+        <class>de.jpa.cert.domain.ParkingSlot</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <!-- Common properties -->
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/JPACertJavaSE;create=true"/>
+            <property name="javax.persistence.jdbc.user" value="APP"/>
+            <property name="javax.persistence.jdbc.password" value="APP"/>
+            <!-- EclipseLink specific properties -->
+            <property name="eclipselink.target-database" value="Derby"/>
+            <property name="eclipselink.logging.level" value="ALL"/>
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            <property name="eclipselink.debug" value="ALL"/>
+            <property name="eclipselink.weaving" value="static"/>
+            <property name="eclipselink.logging.level.sql" value="ALL"/>
+            <property name="eclipselink.logging.level.cache" value="ALL"/>
+        </properties>
+    </persistence-unit>
+
+    <!-- a possible pu for an embedded run -->
+    <persistence-unit name="DerbyEmbedded" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <!--<mapping-file>META-INF/derby-overrides.xml</mapping-file>-->
+        <class>de.jpa.cert.domain.Car</class>
+        <class>de.jpa.cert.domain.Driver</class>
+        <class>de.jpa.cert.domain.ParkingSlot</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:BasementGarageDB;create=true"/>
+            <property name="javax.persistence.jdbc.user" value="APP"/>
+            <property name="javax.persistence.jdbc.password" value="APP"/>
+            <property name="eclipselink.target-database" value="DERBY"/>
+            <property name="eclipselink.logging.level" value="ALL"/>
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="both"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
+
+
+
